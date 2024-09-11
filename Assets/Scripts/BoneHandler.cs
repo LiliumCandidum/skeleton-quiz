@@ -7,6 +7,6 @@ public class BoneHandler : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("ON MOUSE DOWN");
-        gameObject.GetComponent<Renderer>().material.color = Color.green;
+        gameObject.GetComponent<Renderer>().material.color = Color.red;
     }
 }
