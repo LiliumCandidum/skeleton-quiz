@@ -42,13 +42,11 @@ public class DynamicBone : MonoBehaviour
                child.gameObject.layer = layerUI;
             }
             // Set position
-            Debug.Log(currentObject.transform.position);
-            currentObject.transform.position = new Vector3(6.4f, 58.6f, -784f);
-            Debug.Log(currentObject.transform.position);
+            currentObject.transform.localPosition = new Vector3(6.4f, 58.6f, -784f);
             // Set rotation
             // currentObject.transform.rotation = new Vector3(43.296f, 6.468f, 0.395f);
             // Set scale
-            currentObject.transform.localScale = new Vector3(0.5365187f, 0.5365187f, 0.5365187f);
+            currentObject.transform.localScale = new Vector3(0.5365187f, 0.5365187f, 0.51f);
         }        
     }
 }
