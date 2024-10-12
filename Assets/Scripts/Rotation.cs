@@ -12,14 +12,14 @@ public class Rotation : MonoBehaviour
     void Update()
     {
         // Detect mouse click and hold
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             isDragging = true;
             lastMousePosition = Input.mousePosition;
         }
 
         // Detect mouse release
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
             isDragging = false;
         }
