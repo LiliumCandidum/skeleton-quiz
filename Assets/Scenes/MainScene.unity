@@ -5502,12 +5502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d467a6dbca2cee649bf88caceb5b85c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraToZoom: {fileID: 1247612255}
-  zoomSpeed: 10
-  minFov: 90
-  maxFov: 110
-  minOrthoSize: 1
-  maxOrthoSize: 600
 --- !u!1001 &762213041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9247,7 +9241,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 2000
   field of view: 90
-  orthographic: 0
+  orthographic: 1
   orthographic size: 600
   m_Depth: 0
   m_CullingMask:
@@ -10857,6 +10851,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4613749994477518940, guid: 060de40993c8f4540b71ca1bb6868e16, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -3740500708424522155, guid: 28031e71ba44b7d4cbd26eb7a823f537, type: 3}
     - target: {fileID: 919132149155446097, guid: 060de40993c8f4540b71ca1bb6868e16, type: 3}
       propertyPath: m_Name
       value: FJ3392_BP23110_FMA52892_Right zygomatic bone
