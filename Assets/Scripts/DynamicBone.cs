@@ -127,12 +127,13 @@ public class DynamicBone : MonoBehaviour
             //TODO: Highlight target bone
             //Transform boneToHighlight = currentGroup.transform.GetChild(boneIndex);
             //Renderer boneRenderer = boneToHighlight.GetComponent<Renderer>();
+            GameObject currentBone = currentGroup.transform.GetChild(boneIndex).gameObject;
 
-           // var outline = bone.AddComponent<Outline>();
+            var outline = currentBone.AddComponent<Outline>();
 
-//            outline.OutlineMode = Outline.Mode.OutlineAll;
-  //          outline.OutlineColor = Color.yellow;
-    //        outline.OutlineWidth = 5f;
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineColor = Color.yellow;
+            outline.OutlineWidth = 5f;
 
             // Set UI layer
             currentGroup.layer = layerUI;
