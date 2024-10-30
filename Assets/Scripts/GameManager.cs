@@ -10,6 +10,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
 
     private GameObject currentGroup;
 
@@ -21,8 +22,40 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI[] answers;
 
-    public void OnAnswerClick(GameObject answer)
+    public event EventHandler OnStateChanged;
+    public event EventHandler OnBoneChanged;
+
+
+    private enum State
     {
+        WaitingToStart,
+        CountdownToStart,
+        GamePlaying,
+        GameOver
+    }
+
+    private State state;
+    private float waitingToStartTimer = 1f;
+    private float countdownToStartTimer = 3f;
+    private float gamePlayingTime = 0f;
+
+    private int MAX_ANSWERS = 5;
+    private int answered = 0;
+
+    private int correctAnswers = 0;
+
+    private String currentBoneStr = "";
+
+    public bool OnAnswerClick(String answer)
+    {
+        if (answer == currentBoneStr)
+        {
+            correctAnswers += 1;
+        }
+        answered += 1;
+        Debug.Log(answer);
+        Invoke("NextBone", 1f);
+        return answer == currentBoneStr;
 
     }
     void Start()
@@ -30,16 +63,46 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Awake()
+    {
+        Instance = this;
+        state = State.WaitingToStart;
+
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        switch (state)
         {
-
-            NextBone();
-
+            case State.WaitingToStart:
+                waitingToStartTimer -= Time.deltaTime;
+                if (waitingToStartTimer < 0f)
+                {
+                    state = State.CountdownToStart;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.CountdownToStart:
+                countdownToStartTimer -= Time.deltaTime;
+                if (countdownToStartTimer < 0f)
+                {
+                    state = State.GamePlaying;
+                    NextBone();
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.GamePlaying:
+                gamePlayingTime += Time.deltaTime;
+                if (answered == MAX_ANSWERS)
+                {
+                    state = State.GameOver;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.GameOver:
+                break;
         }
     }
 
@@ -73,7 +136,7 @@ public class GameManager : MonoBehaviour
         return (0, null);
     }
 
-    private void NextBone()
+    public void NextBone()
     {
         camera.fieldOfView = 90;
         displayPoint.localRotation = UnityEngine.Quaternion.Euler(0, 0, 0);
@@ -161,34 +224,39 @@ public class GameManager : MonoBehaviour
 
         //sort randomically answers array
         answers = answers.OrderBy(x => UnityEngine.Random.value).ToArray();
-        String[] currentBoneNameSplitted = currentBone.name.Split('_');
-        answers[0].text = currentBoneNameSplitted[currentBoneNameSplitted.Length-1];
+        string[] currentBoneNameSplitted = currentBone.name.Split('_');
+        answers[0].text = currentBoneStr = currentBoneNameSplitted[currentBoneNameSplitted.Length - 1];
+
         // generate 3 answers
-        for(int i = 1; i < answers.Length; i++) {
+        for (int i = 1; i < answers.Length; i++)
+        {
             var randomBone = getRandomBoneIndexGroup();
             int randomBoneIndex = randomBone.Item1;
             GameObject randomBoneObj = randomBone.Item2;
             String[] splitted = randomBoneObj.transform.GetChild(randomBoneIndex).gameObject.name.Split('_');
-            answers[i].text = splitted[splitted.Length-1];
+            answers[i].text = splitted[splitted.Length - 1];
         }
+
+
+        OnBoneChanged?.Invoke(this, EventArgs.Empty);
 
     }
 
+    public bool IsGameRunning()
+    {
+        return state == State.GamePlaying;
+    }
+
+    public bool IsCountDownRunning()
+    {
+        return state == State.CountdownToStart;
+    }
+
+    public float GetCountdownTimer()
+    {
+        return countdownToStartTimer;
+    }
 
 
-
-
-    //currentGroup = Instantiate(prefabGroups[0], displayPoint.localPosition, Quaternion.identity);
-
-    //currentGroup.transform.locallocalPosition = new Vector3(0, 0, 0);
-    //currentGroup.transform.SetParent(displayPoint);
-
-    // Set localPosition
-    //currentGroup.transform.locallocalPosition = new Vector3(0, 0, 0);
-    // Set rotation
-    //currentGroup.transform.rotation = new Vector3(43.296f, 6.468f, 0.395f);
-    // Set scale
-    //currentGroup.transform.localScale = new Vector3(0.5365187f, 0.5365187f, 0.51f);
 }
 
-    // private void SpawnBone(
