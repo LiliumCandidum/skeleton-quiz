@@ -51,6 +51,9 @@ public class AnswerClickListener : MonoBehaviour, IPointerClickHandler
             Debug.Log("running");
             gameObject.SetActive(true);
         }
+        else {
+            gameObject.SetActive(false);
+        }
     }
 
     void Update()

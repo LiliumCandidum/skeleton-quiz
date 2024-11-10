@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private State state;
     private float waitingToStartTimer = 1f;
     private float countdownToStartTimer = 3f;
-    private float gamePlayingTime = 0f;
+    private float gameTime = 0f;
 
     private int MAX_ANSWERS = 5;
     private int answered = 0;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         }
         answered += 1;
         Debug.Log(answer);
-        Invoke("NextBone", 1f);
+        Invoke("NextBone", 0.5f);
         return answer == currentBoneStr;
 
     }
@@ -94,14 +94,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GamePlaying:
-                gamePlayingTime += Time.deltaTime;
-                if (answered == MAX_ANSWERS)
-                {
-                    state = State.GameOver;
-                    OnStateChanged?.Invoke(this, EventArgs.Empty);
-                }
+                gameTime += Time.deltaTime;
                 break;
             case State.GameOver:
+                currentGroup.SetActive(false);
                 break;
         }
     }
@@ -136,8 +132,15 @@ public class GameManager : MonoBehaviour
         return (0, null);
     }
 
-    public void NextBone()
+    public bool NextBone()
     {
+
+        if (answered == MAX_ANSWERS)
+        {
+            state = State.GameOver;
+            OnStateChanged?.Invoke(this, EventArgs.Empty);
+            return false;
+        }
         camera.fieldOfView = 90;
         displayPoint.localRotation = UnityEngine.Quaternion.Euler(0, 0, 0);
 
@@ -240,6 +243,7 @@ public class GameManager : MonoBehaviour
 
         OnBoneChanged?.Invoke(this, EventArgs.Empty);
 
+        return true;
     }
 
     public bool IsGameRunning()
@@ -255,6 +259,21 @@ public class GameManager : MonoBehaviour
     public float GetCountdownTimer()
     {
         return countdownToStartTimer;
+    }
+
+    public float GetGameTime()
+    {
+        return gameTime;
+    }
+
+    public int GetCurrentQuestionIndex()
+    {
+        return answered + 1;
+    }
+
+    public int GetTotalQuestions()
+    {
+        return MAX_ANSWERS;
     }
 
 
