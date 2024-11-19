@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HomeButtonsScript : MonoBehaviour
 {
     public void OnPlayClick() {
-        Debug.Log("clicked play!");
+        SceneLoader.Load(SceneLoader.Scene.QuizScene);
     }
 
     public void OnInfoClick() {
@@ -15,6 +15,6 @@ public class HomeButtonsScript : MonoBehaviour
     }
 
     public void OnLearnClick() {
-        Debug.Log("clicked learn!");
+        SceneLoader.Load(SceneLoader.Scene.ExploreScene);
     }
 }
