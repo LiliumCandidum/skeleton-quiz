@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Linq;
 using System.Numerics;
@@ -25,7 +23,6 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnStateChanged;
     public event EventHandler OnBoneChanged;
 
-
     private enum State
     {
         WaitingToStart,
@@ -39,7 +36,7 @@ public class GameManager : MonoBehaviour
     private float countdownToStartTimer = 3f;
     private float gameTime = 0f;
 
-    private int MAX_ANSWERS = 5;
+    private int MAX_ANSWERS = 15;
     private int answered = 0;
 
     private int correctAnswers = 0;
@@ -58,18 +55,12 @@ public class GameManager : MonoBehaviour
         return answer == currentBoneStr;
 
     }
-    void Start()
-    {
-
-    }
 
     void Awake()
     {
         Instance = this;
         state = State.WaitingToStart;
-
     }
-
 
     // Update is called once per frame
     void Update()
@@ -134,7 +125,6 @@ public class GameManager : MonoBehaviour
 
     public bool NextBone()
     {
-
         if (answered == MAX_ANSWERS)
         {
             state = State.GameOver;
@@ -275,7 +265,5 @@ public class GameManager : MonoBehaviour
     {
         return MAX_ANSWERS;
     }
-
-
 }
 
