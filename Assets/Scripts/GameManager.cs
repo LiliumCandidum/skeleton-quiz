@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
         Debug.Log(answer);
         Invoke("NextBone", 0.5f);
         return answer == currentBoneStr;
-
     }
 
     void Awake()
@@ -230,7 +229,6 @@ public class GameManager : MonoBehaviour
             answers[i].text = splitted[splitted.Length - 1];
         }
 
-
         OnBoneChanged?.Invoke(this, EventArgs.Empty);
 
         return true;
@@ -264,6 +262,16 @@ public class GameManager : MonoBehaviour
     public int GetTotalQuestions()
     {
         return MAX_ANSWERS;
+    }
+
+    public int GetCorrectAnswersCount()
+    {
+        return answered;
+    }
+
+    public bool isGameOver()
+    {
+        return state == State.GameOver;
     }
 }
 
