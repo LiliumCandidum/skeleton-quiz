@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public event EventHandler OnStateChanged;
     public event EventHandler OnBoneChanged;
+    public event EventHandler OnGameOver;
 
     private enum State
     {
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
     private float countdownToStartTimer = 3f;
     private float gameTime = 0f;
 
-    private int MAX_ANSWERS = 15;
+    private int MAX_ANSWERS = 3;
     private int answered = 0;
 
     private int correctAnswers = 0;
@@ -88,6 +89,8 @@ public class GameManager : MonoBehaviour
                 break;
             case State.GameOver:
                 currentGroup.SetActive(false);
+                gameObject.SetActive(false);
+                OnGameOver?.Invoke(this, EventArgs.Empty);
                 break;
         }
     }
@@ -155,16 +158,16 @@ public class GameManager : MonoBehaviour
         string groupName = group.name;
         switch (groupName)
         {
-            case "RightArm": // done
+            case "RightArm":
                 currentGroup.transform.localPosition = new UnityEngine.Vector3(96, -54, -4);
                 break;
-            case "RightLeg": // done
+            case "RightLeg":
                 currentGroup.transform.localPosition = new UnityEngine.Vector3(70, 52, -12);
                 break;
             case "LeftLeg":
                 currentGroup.transform.localPosition = new UnityEngine.Vector3(41, 51, -14);
                 break;
-            case "Body": // done
+            case "Body":
                 currentGroup.transform.localPosition = new UnityEngine.Vector3(-4, -30, 61);
                 break;
             case "Vertebra":
@@ -266,7 +269,7 @@ public class GameManager : MonoBehaviour
 
     public int GetCorrectAnswersCount()
     {
-        return answered;
+        return correctAnswers;
     }
 
     public bool isGameOver()

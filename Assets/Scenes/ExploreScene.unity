@@ -3143,7 +3143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragSpeed: 30
   zoomSpeed: 10
-  rotationSpeed: 25
+  rotationSpeed: 30
 --- !u!81 &436132669
 AudioListener:
   m_ObjectHideFlags: 0
