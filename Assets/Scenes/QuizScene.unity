@@ -404,8 +404,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 155.99654, y: 119}
-  m_SizeDelta: {x: 511.993, y: 50}
+  m_AnchoredPosition: {x: 37.097588, y: 119}
+  m_SizeDelta: {x: 740.1881, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &30631838
 MonoBehaviour:
@@ -429,8 +429,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9987f59f3ffd01e4db960110e1654552, type: 2}
-  m_sharedMaterial: {fileID: -4637196226078492576, guid: 9987f59f3ffd01e4db960110e1654552, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ff91365d82ce344686111284c6ada16, type: 2}
+  m_sharedMaterial: {fileID: 7483774464913815336, guid: 6ff91365d82ce344686111284c6ada16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -454,8 +454,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -15307,8 +15307,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 119.41962, y: 0}
-  m_SizeDelta: {x: 438.8392, y: 50}
+  m_AnchoredPosition: {x: 30.7566, y: 0}
+  m_SizeDelta: {x: 727.5063, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1886484756
 MonoBehaviour:
@@ -15332,8 +15332,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9987f59f3ffd01e4db960110e1654552, type: 2}
-  m_sharedMaterial: {fileID: -4637196226078492576, guid: 9987f59f3ffd01e4db960110e1654552, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ff91365d82ce344686111284c6ada16, type: 2}
+  m_sharedMaterial: {fileID: 7483774464913815336, guid: 6ff91365d82ce344686111284c6ada16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15357,8 +15357,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
