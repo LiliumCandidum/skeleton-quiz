@@ -5,9 +5,14 @@ using UnityEngine.UI;
 
 public class AnswerClickListener : MonoBehaviour, IPointerClickHandler
 {
+    Color bgColor;
+
     // Start is called before the first frame update
     void Start()
     {
+        bgColor = new Color();
+        ColorUtility.TryParseHtmlString("#FFB04F", out bgColor);
+
         GameManager.Instance.OnStateChanged += OnStateChanged;
         GameManager.Instance.OnBoneChanged += OnBoneChanged;
         gameObject.SetActive(false);
@@ -31,7 +36,7 @@ public class AnswerClickListener : MonoBehaviour, IPointerClickHandler
     private void OnBoneChanged(object sender, System.EventArgs e)
     {
         Image background = gameObject.GetComponent<Image>();
-        background.color = new Color(1f, 1f, 1f, 1f);
+        background.color = bgColor;
     }
 
     private void OnStateChanged(object sender, System.EventArgs e)
