@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BoneHandler : MonoBehaviour
 {
     void OnMouseDown()
     {
-        Debug.Log("ON MOUSE DOWN");
-        gameObject.GetComponent<Renderer>().material.color = Color.green;
+        ExploreManager.Instance.OnBoneClick(gameObject.GetComponent<Renderer>(), transform.parent);
     }
 }
