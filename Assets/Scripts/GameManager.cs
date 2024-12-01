@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject currentGroup;
 
+    System.Random random = new System.Random();
+
     private string[] MACRO_GROUPS = { "Skull", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg" };    // Five macro groups of bones: Skull, Body, LeftArm, RightArm, LeftLeg, RightLeg
     private string[] SUB_GROUPS = { "Vertebra", "Rib", "LeftHand", "RightHand", "LeftFoot", "RightFoot" };    // Five macro groups of bones: Skull, Body, LeftArm, RightArm, LeftLeg, RightLeg
     [SerializeField] private GameObject[] prefabGroups;
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
     private float countdownToStartTimer = 3f;
     private float gameTime = 0f;
 
-    private int MAX_ANSWERS = 3;
+    private int MAX_ANSWERS = 15;
     private int answered = 0;
 
     private int correctAnswers = 0;
@@ -95,7 +97,7 @@ public class GameManager : MonoBehaviour
     private (int, GameObject) getRandomBoneIndexGroup()
     {
         // pick one of the five macrogroups
-        int groupIndex = UnityEngine.Random.Range(0, prefabGroups.Length);
+        int groupIndex = random.Next(0, prefabGroups.Length);
 
         if (prefabGroups[groupIndex] != null)
         {
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(group.name);
 
             // pick a bone or a subgroup of bones inside the macrogroup 
-            int boneIndex = UnityEngine.Random.Range(0, group.transform.childCount);
+            int boneIndex = random.Next(0, group.transform.childCount);
             GameObject bone = group.transform.GetChild(boneIndex).gameObject;
             Debug.Log(bone.name);
 
@@ -111,7 +113,7 @@ public class GameManager : MonoBehaviour
             if (SUB_GROUPS.Contains(bone.name))
             {
                 group = bone;
-                boneIndex = UnityEngine.Random.Range(0, group.transform.childCount);
+                boneIndex = random.Next(0, group.transform.childCount);
                 bone = group.transform.GetChild(boneIndex).gameObject;
                 Debug.Log(bone.name);
             }
@@ -120,6 +122,18 @@ public class GameManager : MonoBehaviour
         }
 
         return (0, null);
+    }
+
+    private Boolean AnswerAlreadyExists(String name)
+    {
+        for (int i = 0; i < answers.Length; i++)
+        {
+            if(answers[i].text == name)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool NextBone()
@@ -220,13 +234,21 @@ public class GameManager : MonoBehaviour
         answers[0].text = currentBoneStr = currentBoneNameSplitted[currentBoneNameSplitted.Length - 1];
 
         // generate 3 answers
-        for (int i = 1; i < answers.Length; i++)
+        int i = 1;
+        while(i < 4)
         {
             var randomBone = getRandomBoneIndexGroup();
             int randomBoneIndex = randomBone.Item1;
             GameObject randomBoneObj = randomBone.Item2;
             String[] splitted = randomBoneObj.transform.GetChild(randomBoneIndex).gameObject.name.Split('_');
-            answers[i].text = splitted[splitted.Length - 1];
+            String name = splitted[splitted.Length - 1];
+            
+            // Check if already present
+            if(!AnswerAlreadyExists(name))
+            {
+                answers[i].text = name;
+                i++;
+            }
         }
 
         OnBoneChanged?.Invoke(this, EventArgs.Empty);
