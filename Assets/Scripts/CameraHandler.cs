@@ -4,7 +4,6 @@ public class CameraHandler : MonoBehaviour
 {
     public float dragSpeed = 10;
     public float zoomSpeed = 7;
-    public float rotationSpeed = 4;
     private Vector3 dragOrigin;
 
     void Update()
@@ -13,18 +12,20 @@ public class CameraHandler : MonoBehaviour
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if(mouseWheel != 0)
         {
-            float zoomValue = 0f;
-            if (mouseWheel > 0)
+            Debug.Log(Camera.main.fieldOfView);
+            float zoomValue = Camera.main.fieldOfView;
+            if (mouseWheel > 0 && zoomValue > 10)
             {
-                zoomValue = zoomSpeed;
+                zoomValue = zoomValue - zoomSpeed;
             }
-            else if (mouseWheel < 0)
+            else if (mouseWheel < 0 && zoomValue < 130)
             {
-                zoomValue = -zoomSpeed;
+                zoomValue = zoomValue + zoomSpeed;
             }
 
-            Vector3 zoomV = new Vector3(0, 0, zoomValue);
-            transform.Translate(zoomV, Space.World);
+            //Vector3 zoomV = new Vector3(0, 0, zoomValue);
+            //transform.Translate(zoomV, Space.World);
+            Camera.main.fieldOfView = zoomValue;
             return;
         }
 
@@ -42,16 +43,6 @@ public class CameraHandler : MonoBehaviour
             Vector3 move = new Vector3(pos.x * dragSpeed, pos.y * dragSpeed, 0);
 
             transform.Translate(move, Space.Self);
-            return;
-        }
-        // Rotate
-        if(Input.GetMouseButton(1))
-        {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
-            Vector3 rotation = new Vector3(-mouseY, mouseX, 0) * rotationSpeed * Time.deltaTime;
-
-            transform.Rotate(rotation, Space.Self);
             return;
         }
     }

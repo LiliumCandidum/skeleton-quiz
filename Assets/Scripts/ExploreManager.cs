@@ -32,9 +32,13 @@ public class ExploreManager : MonoBehaviour
             {
                 nameText.text = "Unknown bone";
             }
-        }
 
-        prevGameObjectRenderer = currGameObjectRenderer;
+            prevGameObjectRenderer = currGameObjectRenderer;
+        } else
+        {
+            prevGameObjectRenderer = null;
+            nameText.text = null;
+        }
     }
 
     void Awake()

@@ -12402,6 +12402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1533857251}
   - component: {fileID: 1533857252}
+  - component: {fileID: 1533857254}
   m_Layer: 5
   m_Name: QuestionBone
   m_TagString: Untagged
@@ -12442,6 +12443,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+--- !u!222 &1533857254
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533857250}
+  m_CullTransparentMesh: 1
 --- !u!1 &1543272211
 GameObject:
   m_ObjectHideFlags: 0
@@ -16221,7 +16230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7254902, g: 0.79607844, b: 0.94509804, a: 0.8666667}
+  m_Color: {r: 0.7254902, g: 0.79607844, b: 0.94509804, a: 0.77254903}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
