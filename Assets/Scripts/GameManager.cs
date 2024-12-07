@@ -170,22 +170,22 @@ public class GameManager : MonoBehaviour
         switch (groupName)
         {
             case "RightArm":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(96, -54, -4);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(96, -34, -4);
                 break;
             case "RightLeg":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(70, 52, -12);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(78, 78, -12);
                 break;
             case "LeftLeg":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(41, 51, -14);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(45, 77, -14);
                 break;
             case "Body":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-4, -30, 61);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(11, 4, 61);
                 break;
             case "Vertebra":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(0, -17, -10);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(13, 3, -10);
                 break;
             case "Skull":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-2, -115, 143);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(9, -80, 143);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(0, 180, 0));
                 break;
             case "RightHand":
@@ -193,25 +193,23 @@ public class GameManager : MonoBehaviour
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(-180, -1, 3));
                 break;
             case "LeftArm":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-36, 84, 5);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-20, 103, 5);
                 break;
             case "LeftFoot":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-15, 43, -134);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(1, 57, -134);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(64, -113, 70));
                 break;
             case "LeftHand":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-21, -133, 36);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-6, -110, 36);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(156, -2, -10));
                 break;
             case "RightFoot":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-56, -50, -135);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-42, -38, -135);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(59, 65, -116));
                 break;
             case "Rib":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-2, -32, 71);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(10, -15, 71);
                 break;
-
-
         }
 
         // outline bone
