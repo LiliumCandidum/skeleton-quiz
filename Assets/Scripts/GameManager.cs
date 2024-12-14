@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
 
     System.Random random = new System.Random();
 
-    private string[] MACRO_GROUPS = { "Skull", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg" };    // Five macro groups of bones: Skull, Body, LeftArm, RightArm, LeftLeg, RightLeg
-    private string[] SUB_GROUPS = { "Vertebra", "Rib", "LeftHand", "RightHand", "LeftFoot", "RightFoot" };    // Five macro groups of bones: Skull, Body, LeftArm, RightArm, LeftLeg, RightLeg
+    private string[] MACRO_GROUPS = { "Skull", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg" };
+    private string[] SUB_GROUPS = { "Vertebra", "Rib", "LeftHand", "RightHand", "LeftFoot", "RightFoot" };
     [SerializeField] private GameObject[] prefabGroups;
     [SerializeField] private RectTransform displayPoint;
     [SerializeField] private Camera camera;
@@ -25,14 +25,12 @@ public class GameManager : MonoBehaviour
 
     private enum State
     {
-        WaitingToStart,
         CountdownToStart,
         GamePlaying,
         GameOver
     }
 
     private State state;
-    private float waitingToStartTimer = 1f;
     private float countdownToStartTimer = 3f;
     private float gameTime = 0f;
 
@@ -58,22 +56,13 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        state = State.WaitingToStart;
+        state = State.CountdownToStart;
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (state)
         {
-            case State.WaitingToStart:
-                waitingToStartTimer -= Time.deltaTime;
-                if (waitingToStartTimer < 0f)
-                {
-                    state = State.CountdownToStart;
-                    OnStateChanged?.Invoke(this, EventArgs.Empty);
-                }
-                break;
             case State.CountdownToStart:
                 countdownToStartTimer -= Time.deltaTime;
                 if (countdownToStartTimer < 0f)
@@ -94,7 +83,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private (int, GameObject) getRandomBoneIndexGroup()
+    private (int, GameObject) GetRandomBoneIndexGroup()
     {
         // pick one of the five macrogroups
         int groupIndex = random.Next(0, prefabGroups.Length);
@@ -155,37 +144,34 @@ public class GameManager : MonoBehaviour
         int layerUI = LayerMask.NameToLayer("UI");
 
         // generate random bone
-        var res = getRandomBoneIndexGroup();
+        var res = GetRandomBoneIndexGroup();
         GameObject group = res.Item2;
         int boneIndex = res.Item1;
 
-        // instantiate the group
         currentGroup = Instantiate(group, displayPoint.position, UnityEngine.Quaternion.identity);
-
-        //Rotate on display point should work
         currentGroup.transform.SetParent(displayPoint);
 
-        //check which group it is to fix x,y,z relative to parent
+        // set group x, y, z relative to parent
         string groupName = group.name;
         switch (groupName)
         {
             case "RightArm":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(96, -34, -4);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(96, -54, -4);
                 break;
             case "RightLeg":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(78, 78, -12);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(70, 52, -12);
                 break;
             case "LeftLeg":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(45, 77, -14);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(41, 51, -14);
                 break;
             case "Body":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(11, 4, 61);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-4, -30, 61);
                 break;
             case "Vertebra":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(13, 3, -10);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(0, -17, -10);
                 break;
             case "Skull":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(9, -80, 143);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-2, -115, 143);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(0, 180, 0));
                 break;
             case "RightHand":
@@ -193,22 +179,22 @@ public class GameManager : MonoBehaviour
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(-180, -1, 3));
                 break;
             case "LeftArm":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-20, 103, 5);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-36, 84, 5);
                 break;
             case "LeftFoot":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(1, 57, -134);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-15, 43, -134);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(64, -113, 70));
                 break;
             case "LeftHand":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-6, -110, 36);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-21, -133, 36);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(156, -2, -10));
                 break;
             case "RightFoot":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(-42, -38, -135);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-56, -50, -135);
                 currentGroup.transform.Rotate(new UnityEngine.Vector3(59, 65, -116));
                 break;
             case "Rib":
-                currentGroup.transform.localPosition = new UnityEngine.Vector3(10, -15, 71);
+                currentGroup.transform.localPosition = new UnityEngine.Vector3(-2, -32, 71);
                 break;
         }
 
@@ -226,7 +212,7 @@ public class GameManager : MonoBehaviour
             child.gameObject.layer = layerUI;
         }
 
-        //sort randomically answers array
+        // sort randomically answers array
         answers = answers.OrderBy(x => UnityEngine.Random.value).ToArray();
         string[] currentBoneNameSplitted = currentBone.name.Split('_');
         answers[0].text = currentBoneStr = currentBoneNameSplitted[currentBoneNameSplitted.Length - 1];
@@ -235,7 +221,7 @@ public class GameManager : MonoBehaviour
         int i = 1;
         while(i < 4)
         {
-            var randomBone = getRandomBoneIndexGroup();
+            var randomBone = GetRandomBoneIndexGroup();
             int randomBoneIndex = randomBone.Item1;
             GameObject randomBoneObj = randomBone.Item2;
             String[] splitted = randomBoneObj.transform.GetChild(randomBoneIndex).gameObject.name.Split('_');

@@ -23,8 +23,6 @@ public class CameraHandler : MonoBehaviour
                 zoomValue = zoomValue + zoomSpeed;
             }
 
-            //Vector3 zoomV = new Vector3(0, 0, zoomValue);
-            //transform.Translate(zoomV, Space.World);
             Camera.main.fieldOfView = zoomValue;
             return;
         }

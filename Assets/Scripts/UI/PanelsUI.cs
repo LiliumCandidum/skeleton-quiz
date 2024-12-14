@@ -7,7 +7,6 @@ public class AnswerClickListener : MonoBehaviour, IPointerClickHandler
 {
     Color bgColor;
 
-    // Start is called before the first frame update
     void Start()
     {
         bgColor = new Color();
@@ -41,14 +40,6 @@ public class AnswerClickListener : MonoBehaviour, IPointerClickHandler
 
     private void OnStateChanged(object sender, System.EventArgs e)
     {
-        if (GameManager.Instance.IsGameRunning())
-        {
-            Debug.Log("running");
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(GameManager.Instance.IsGameRunning());
     }
 }

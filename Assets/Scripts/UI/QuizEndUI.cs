@@ -7,7 +7,6 @@ public class QuizEndUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI answeredText;
     [SerializeField] private TextMeshProUGUI gameTimeText;
 
-    // Start is called before the first frame update
     void Start()
     {
         GameManager.Instance.OnGameOver += OnGameOver;
@@ -23,7 +22,7 @@ public class QuizEndUI : MonoBehaviour
             float time = GameManager.Instance.GetGameTime();
             Debug.Log(time);
             Debug.Log(TimeSpan.FromSeconds(time));
-            answeredText.text = "You answered " + instance.GetCorrectAnswersCount().ToString() + " correctly";
+            answeredText.text = "You answered " + instance.GetCorrectAnswersCount().ToString() + "/" + instance.GetTotalQuestions().ToString() + " correctly";
             gameTimeText.text = "Time: " + TimeSpan.FromSeconds(time).ToString(@"mm\:ss");
         }
     }

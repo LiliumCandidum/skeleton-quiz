@@ -7,7 +7,7 @@ public class TimePassedUI : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI timePassedText;
-    // Start is called before the first frame update
+
     void Start()
     {
         GameManager.Instance.OnStateChanged += OnStateChanged;
@@ -15,7 +15,6 @@ public class TimePassedUI : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         int totSeconds = Mathf.CeilToInt(GameManager.Instance.GetGameTime());
@@ -25,12 +24,8 @@ public class TimePassedUI : MonoBehaviour
         
     }
 
-    private void OnStateChanged(object sender, System.EventArgs e) {
-        if(GameManager.Instance.IsGameRunning()) {
-            gameObject.SetActive(true);
-        }
-        else {
-            gameObject.SetActive(false);
-        }
+    private void OnStateChanged(object sender, System.EventArgs e)
+    {
+        gameObject.SetActive(GameManager.Instance.IsGameRunning());
     }
 }
