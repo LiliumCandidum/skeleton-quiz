@@ -6,6 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    private static int MAX_ANSWERS = 15;
 
     private GameObject currentGroup;
 
@@ -34,9 +35,9 @@ public class GameManager : MonoBehaviour
     private float countdownToStartTimer = 3f;
     private float gameTime = 0f;
 
-    private int MAX_ANSWERS = 15;
     private int answered = 0;
 
+    private (int, String)[] pastQuestions = new (int, String)[MAX_ANSWERS];
     private int correctAnswers = 0;
 
     private String currentBoneStr = "";
@@ -125,6 +126,19 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    private Boolean QuestionAlreadyAsked((int, GameObject) question)
+    {
+        String groupName = question.Item2.name;
+        for (int i = 0; i < pastQuestions.Length; i++)
+        {
+            if (pastQuestions[i].Item2 == groupName && pastQuestions[i].Item1 == question.Item1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool NextBone()
     {
         if (answered == MAX_ANSWERS)
@@ -144,9 +158,17 @@ public class GameManager : MonoBehaviour
         int layerUI = LayerMask.NameToLayer("UI");
 
         // generate random bone
-        var res = GetRandomBoneIndexGroup();
-        GameObject group = res.Item2;
-        int boneIndex = res.Item1;
+        (int, GameObject) randomBone;
+        GameObject group;
+        int boneIndex;
+        do
+        {
+            randomBone = GetRandomBoneIndexGroup();
+            group = randomBone.Item2;
+            boneIndex = randomBone.Item1;
+        } while (QuestionAlreadyAsked(randomBone));
+        
+        pastQuestions[answered] = (randomBone.Item1, randomBone.Item2.name);
 
         currentGroup = Instantiate(group, displayPoint.position, UnityEngine.Quaternion.identity);
         currentGroup.transform.SetParent(displayPoint);
@@ -221,9 +243,9 @@ public class GameManager : MonoBehaviour
         int i = 1;
         while(i < 4)
         {
-            var randomBone = GetRandomBoneIndexGroup();
-            int randomBoneIndex = randomBone.Item1;
-            GameObject randomBoneObj = randomBone.Item2;
+            var randomBoneAnswer = GetRandomBoneIndexGroup();
+            int randomBoneIndex = randomBoneAnswer.Item1;
+            GameObject randomBoneObj = randomBoneAnswer.Item2;
             String[] splitted = randomBoneObj.transform.GetChild(randomBoneIndex).gameObject.name.Split('_');
             String name = splitted[splitted.Length - 1];
             
